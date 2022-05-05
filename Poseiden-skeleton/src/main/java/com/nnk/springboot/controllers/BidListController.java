@@ -79,7 +79,7 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request bidList/delete/{}",id);
         BidList bidList = bidService.findById(id);
