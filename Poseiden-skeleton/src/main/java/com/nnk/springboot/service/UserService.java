@@ -3,9 +3,11 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
-    Object findAll();
+    List<User> findAll();
 
     void save(User user);
 
