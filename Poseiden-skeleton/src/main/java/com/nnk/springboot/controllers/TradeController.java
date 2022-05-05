@@ -1,6 +1,12 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.service.TradeService;
+import com.nnk.springboot.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,43 +18,72 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/trade")
 public class TradeController {
-    // TODO: Inject Trade service
 
-    @RequestMapping("/trade/list")
+    /**
+     * SLF4J/LOG4J LOGGER instance.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(TradeController.class);
+
+    @Autowired
+    private TradeService tradeService;
+
+    @GetMapping("/list")
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
+        LOGGER.debug("get request trade/list");
+        model.addAttribute("trades", tradeService.findAll());
         return "trade/list";
     }
 
-    @GetMapping("/trade/add")
+    @GetMapping("/add")
     public String addUser(Trade bid) {
+        LOGGER.debug("get request trade/add of {}",bid.getTradeId());
         return "trade/add";
     }
 
-    @PostMapping("/trade/validate")
+    @PostMapping("/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+        LOGGER.debug("post request trade/validate of trade{}",trade.getTradeId());
+        if (!result.hasErrors()) {
+            tradeService.save(trade);
+            model.addAttribute("trades", tradeService.findAll());
+            return "redirect:/trade/list";
+        }
+        LOGGER.error("result error :{}",result.getFieldError());
         return "trade/add";
     }
 
-    @GetMapping("/trade/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+        LOGGER.debug("get request trade/update/{}",id);
+        Trade trade = tradeService.findById(id);
+        model.addAttribute("trade", trade);
         return "trade/update";
     }
 
-    @PostMapping("/trade/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+        LOGGER.debug("post request trade/update/{}",id);
+        if (result.hasErrors()) {
+            LOGGER.error("result error :{}",result.getFieldError());
+            return "trade/update";
+        }
+        trade.setTradeId(id);
+        tradeService.save(trade);
+        model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }
 
-    @GetMapping("/trade/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+        LOGGER.debug("get request trade/delete/{}",id);
+        Trade trade = tradeService.findById(id);
+        tradeService.delete(trade);
+        model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }
 }
