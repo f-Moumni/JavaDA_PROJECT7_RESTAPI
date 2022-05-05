@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class BidList  {
  @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
- private Integer BidListId;
+ private Integer bidListId;
  @NotNull ( message =" account required" )
  @NotBlank(message = "account required ")
  private String account;
@@ -65,11 +65,11 @@ public class BidList  {
  }
 
  public int getBidListId() {
-  return BidListId;
+  return bidListId;
  }
 
  public void setBidListId(int bidListId) {
-  BidListId = bidListId;
+  bidListId = bidListId;
  }
 
  public String getAccount() {
