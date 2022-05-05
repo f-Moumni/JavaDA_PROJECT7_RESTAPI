@@ -5,36 +5,52 @@ import org.springframework.beans.factory.annotation.Required;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bidlist")
-public class BidList {
+@Table(name = "bid_list")
+public class BidList  {
  @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int BidListId;
+ @GeneratedValue(strategy = GenerationType.AUTO)
+ private Integer BidListId;
+ @NotNull ( message =" account required" )
+ @NotBlank(message = "account required ")
  private String account;
+ @NotNull ( message = "type required ")
+ @NotBlank(message = "type required ")
  private String type;
+ @Column(name = "bid_quantity")
  private double bidQuantity;
+ @Column(name = "ask_quantity")
  private double askQuantity;
  private double bid;
  private double ask;
  private String benchmark;
+ @Column(name = "bidList_date")
  private LocalDate bidListDate;
  private String commentary;
  private String security;
  private String status;
  private String trader;
  private String book;
+ @Column(name = "creation_name")
  private String creationName;
+ @Column(name = "creation_date")
  private LocalDate creationDate;
+ @Column(name = "revision_name")
  private String revisionName;
+ @Column(name = "revision_date")
  private LocalDate revisionDate;
+ @Column(name = "deal_name")
  private String dealName;
+ @Column(name = "deal_type")
  private String dealType;
+ @Column(name = "source_list_id")
  private String sourceListId;
  private String side;
 

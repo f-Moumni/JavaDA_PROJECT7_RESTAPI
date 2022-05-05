@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,26 +13,39 @@ import java.time.LocalDateTime;
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tradeId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="trade_id")
+    private Integer tradeId;
     private String account;
     private String type;
+    @Column(name="buy_quantity")
     private double buyQuantity;
+    @Column(name="sell_quantity")
     private double sellQuantity;
+    @Column(name="buy_price")
     private double buyPrice;
+    @Column(name="sell_price")
     private double sellPrice;
     private String benchmark;
+    @Column(name="trade_date")
     private LocalDate tradeDate;
     private String security;
     private String status;
     private String trader;
     private String book;
+    @Column(name="creation_name")
     private String creationName;
+    @Column(name="creation_date")
     private LocalDate creationDate;
+    @Column(name="revision_name")
     private String revisionName;
+    @Column(name="revision_date")
     private LocalDate revisionDate;
+    @Column(name="deal_name")
     private String dealName;
+    @Column(name="deal_type")
     private String dealType;
+    @Column(name="source_list_id")
     private String sourceListId;
     private String side;
 
@@ -41,7 +55,6 @@ public class Trade {
     }
 
     public Trade() {
-
     }
 
     public int getTradeId() {

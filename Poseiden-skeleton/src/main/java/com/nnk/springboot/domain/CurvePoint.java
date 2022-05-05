@@ -5,27 +5,35 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "curvepoint")
-public class CurvePoint {
+@Table(name = "curve_point")
+public class CurvePoint  {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    @Column(name = "curve_id")
     private int curveId;
-   private  LocalDateTime asOfDate;
+    @Column(name = "as_of_date")
+    private LocalDateTime asOfDate;
     private double term;
-   private double value;
-    private  LocalDateTime creationDate;
+    private double value;
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
-    public CurvePoint(int i, double v, double v1) {
-    }
 
     public CurvePoint() {
 
+    }
+
+    public CurvePoint(int id, double term, double value) {
+        this.id = id;
+        this.term = term;
+        this.value = value;
     }
 
     public int getId() {

@@ -2,15 +2,16 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "rulename")
-public class RuleName {
+@Table(name = "rule_name")
+public class RuleName  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String name;
     private String description;
     private String json;

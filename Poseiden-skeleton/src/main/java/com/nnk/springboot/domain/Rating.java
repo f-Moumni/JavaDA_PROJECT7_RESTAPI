@@ -3,17 +3,22 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
-public class Rating {
+public class Rating   {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+   private Integer id;
+    @Column(name="moodys_rating")
    private String moodysRating;
+    @Column(name="sandP_rating")
    private String sandPRating;
+    @Column(name="fitch_rating")
    private String fitchRating;
+    @Column(name="order_number")
    private int orderNumber;
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, int orderNumber) {
