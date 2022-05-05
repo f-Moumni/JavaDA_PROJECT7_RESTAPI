@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class BidServiceImpl implements BidService {
     /**
-     * Create a SLF4J/LOG4J LOGGER instance.
+     * SLF4J/LOG4J LOGGER instance.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BidServiceImpl.class);
@@ -22,21 +22,28 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public BidList findById(Integer id) {
-        return null;
+        LOGGER.debug("fetching bid by id:{}",id);
+        return   bidListRepository.findById(id).orElseThrow( ()->{
+            LOGGER.error("Invalid bid Id: {} ", id);
+            return new IllegalArgumentException("Invalid bid Id:" + id);
+        }   );
     }
 
     @Override
     public List<BidList> findAll() {
+        LOGGER.debug("getting all bids");
         return bidListRepository.findAll();
     }
 
     @Override
     public BidList save(BidList bid) {
+        LOGGER.debug("saving bid {}",bid.getBidListId());
         return bidListRepository.save(bid);
     }
 
     @Override
     public void delete(BidList bidList) {
-
+        LOGGER.debug("deleting bid:{}",bidList.getBidListId());
+        bidListRepository.delete(bidList);
     }
 }
