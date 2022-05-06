@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     /**
-     * Create a SLF4J/LOG4J LOGGER instance.
+     * SLF4J/LOG4J LOGGER instance.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserController.class);
@@ -28,21 +29,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user/list")
+    @GetMapping("/list")
     public String home(Model model)
     {
-        LOGGER.debug("getting all users");
+        LOGGER.debug("get request user/list");
         model.addAttribute("users", userService.findAll());
         return "user/list";
     }
 
-    @GetMapping("/user/add")
+    @GetMapping("/add")
     public String addUser(User bid) {
+        LOGGER.debug("get request user/add of {}",bid.getFullname());
         return "user/add";
     }
 
-    @PostMapping("/user/validate")
+    @PostMapping("/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
+        LOGGER.debug("post request user/validate of {}",user.getFullname());
         if (!result.hasErrors()) {
         /*    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));*/
@@ -50,21 +53,25 @@ public class UserController {
             model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
         }
+        LOGGER.error("result error :{}",result.getFieldError());
         return "user/add";
     }
 
-    @GetMapping("/user/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        LOGGER.debug("get request user/update/{}",id);
         User user = userService.findById(id);
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
     }
 
-    @PostMapping("/user/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        LOGGER.debug("post request user/update/{}",id);
         if (result.hasErrors()) {
+            LOGGER.error("result Error :{}",result.getFieldError());
             return "user/update";
         }
 
@@ -76,8 +83,9 @@ public class UserController {
         return "redirect:/user/list";
     }
 
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        LOGGER.debug("Get request user/delete/{}",id);
         User user = userService.findById(id);
         userService.delete(user);
         model.addAttribute("users", userService.findAll());
