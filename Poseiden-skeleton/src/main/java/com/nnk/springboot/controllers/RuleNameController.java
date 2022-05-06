@@ -59,7 +59,7 @@ public class RuleNameController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request ruleName/update/{}",id);
         RuleName rule = ruleService.findById(id);
-        model.addAttribute("rule", rule);
+        model.addAttribute("ruleName", rule);
         return "ruleName/update";
     }
 
