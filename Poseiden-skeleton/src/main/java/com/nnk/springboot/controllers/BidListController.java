@@ -61,7 +61,7 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request bidList/update/{}",id);
         BidList bidList = bidService.findById(id);
-        model.addAttribute("bid", bidList);
+        model.addAttribute("bidList", bidList);
         return "bidList/update";
     }
 
