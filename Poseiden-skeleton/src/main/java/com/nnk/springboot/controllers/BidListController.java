@@ -31,7 +31,7 @@ public class BidListController {
     @Autowired
     BidService bidService;
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public String home(Model model)
     {
         LOGGER.debug("get request bidList/list");
