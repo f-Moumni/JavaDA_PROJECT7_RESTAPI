@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,13 +19,14 @@ public class BidList  {
  @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
  private Integer bidListId;
- @NotNull ( message =" account required" )
+
  @NotBlank(message = "account required ")
  private String account;
- @NotNull ( message = "type required ")
+
  @NotBlank(message = "type required ")
  private String type;
  @Column(name = "bid_quantity")
+ @Min(1)
  private double bidQuantity;
  @Column(name = "ask_quantity")
  private double askQuantity;

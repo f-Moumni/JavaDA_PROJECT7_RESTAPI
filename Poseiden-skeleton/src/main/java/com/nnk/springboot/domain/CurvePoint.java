@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,10 +18,13 @@ public class CurvePoint  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "curve_id")
+    @Min(1)
     private int curveId;
     @Column(name = "as_of_date")
     private LocalDateTime asOfDate;
+    @Min(1)
     private double term;
+    @Min(1)
     private double value;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;

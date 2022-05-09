@@ -1,7 +1,9 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -16,9 +18,13 @@ public class Trade {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="trade_id")
     private Integer tradeId;
+    @NotBlank(message = "account required")
     private String account;
+    @NotBlank(message = "type required")
     private String type;
     @Column(name="buy_quantity")
+    @NotNull
+    @Min(1)
     private double buyQuantity;
     @Column(name="sell_quantity")
     private double sellQuantity;

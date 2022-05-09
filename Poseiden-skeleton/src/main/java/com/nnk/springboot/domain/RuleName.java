@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -12,11 +13,17 @@ public class RuleName  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotBlank(message = "name required")
     private String name;
+    @NotBlank(message = "description required")
     private String description;
+    @NotBlank(message = "json required")
     private String json;
+    @NotBlank(message = "template required")
     private String template;
+    @NotBlank(message = "sqlStr required")
     private String sqlStr;
+    @NotBlank(message = "sqlPart required")
     private String sqlPart;
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
