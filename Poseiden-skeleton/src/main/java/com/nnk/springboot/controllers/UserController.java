@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,8 +48,8 @@ public class UserController {
     public String validate(@Valid User user, BindingResult result, Model model) {
         LOGGER.debug("post request user/validate of {}",user.getFullname());
         if (!result.hasErrors()) {
-        /*    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));*/
+           BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
             userService.save(user);
             model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
@@ -75,8 +76,8 @@ public class UserController {
             return "user/update";
         }
 
-     /*   BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));*/
+       BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
         userService.save(user);
         model.addAttribute("users", userService.findAll());

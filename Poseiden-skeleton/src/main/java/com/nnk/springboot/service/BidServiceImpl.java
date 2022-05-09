@@ -37,7 +37,7 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public BidList save(BidList bid) {
-        LOGGER.debug("saving bid {}",bid.getBidListId());
+        LOGGER.debug("saving bid {}",bid.getAccount());
         return bidListRepository.save(bid);
     }
 

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 
 
 @Controller
 @RequestMapping("/bidList")
+@RolesAllowed("ADMIN")
 public class BidListController {
     /**
      * SLF4J/LOG4J LOGGER instance.
@@ -31,7 +33,7 @@ public class BidListController {
     @Autowired
     BidService bidService;
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public String home(Model model)
     {
         LOGGER.debug("get request bidList/list");
@@ -61,7 +63,7 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request bidList/update/{}",id);
         BidList bidList = bidService.findById(id);
-        model.addAttribute("bid", bidList);
+        model.addAttribute("bidList", bidList);
         return "bidList/update";
     }
 

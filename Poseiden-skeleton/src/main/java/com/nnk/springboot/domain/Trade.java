@@ -57,11 +57,11 @@ public class Trade {
     public Trade() {
     }
 
-    public int getTradeId() {
+    public Integer getTradeId() {
         return tradeId;
     }
 
-    public void setTradeId(int tradeId) {
+    public void setTradeId(Integer tradeId) {
         this.tradeId = tradeId;
     }
 
