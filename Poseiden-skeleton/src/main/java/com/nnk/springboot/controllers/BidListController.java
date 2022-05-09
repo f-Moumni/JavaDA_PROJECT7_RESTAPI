@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 
 
 @Controller
 @RequestMapping("/bidList")
+@RolesAllowed("ADMIN")
 public class BidListController {
     /**
      * SLF4J/LOG4J LOGGER instance.
