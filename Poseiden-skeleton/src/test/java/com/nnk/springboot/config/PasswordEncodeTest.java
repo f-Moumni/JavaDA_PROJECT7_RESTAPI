@@ -1,12 +1,14 @@
-package com.nnk.springboot.repositorises;
+package com.nnk.springboot.config;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * Created by Khang Nguyen.
@@ -14,14 +16,17 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Date: 09/03/2019
  * Time: 11:26 AM
  */
-@ActiveProfiles("test")
-@RunWith(SpringRunner.class)
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class PasswordEncodeTest {
     @Test
     public void testPassword() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String pw = encoder.encode("123456");
-        System.out.println("[ "+ pw + " ]");
+        String pw = encoder.encode("password123");
+        assertThat(pw).isNotEmpty();
+        assertThat(pw).isNotEqualTo("password123");
+        assertThat(pw).startsWith("$2a$10$");
+
     }
 }

@@ -40,6 +40,13 @@ public class CurvePoint  {
         this.value = value;
     }
 
+    public CurvePoint(Integer id, int curveId, double term, double value) {
+        this.id = id;
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
+
     public Integer getId() {
         return id;
     }

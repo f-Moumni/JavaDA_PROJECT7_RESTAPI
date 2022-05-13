@@ -25,8 +25,9 @@ public class BidList  {
 
  @NotBlank(message = "type required ")
  private String type;
- @Column(name = "bid_quantity")
+
  @Min(1)
+ @Column(name = "bid_quantity")
  private double bidQuantity;
  @Column(name = "ask_quantity")
  private double askQuantity;
@@ -59,6 +60,13 @@ public class BidList  {
  public BidList() {
  }
  public BidList( String account, String type, double bidQuantity) {
+  this.account = account;
+  this.type = type;
+  this.bidQuantity = bidQuantity;
+ }
+
+ public BidList(Integer bidListId, String account, String type, double bidQuantity) {
+  this.bidListId = bidListId;
   this.account = account;
   this.type = type;
   this.bidQuantity = bidQuantity;
