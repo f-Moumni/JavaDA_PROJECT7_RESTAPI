@@ -34,27 +34,34 @@ public class RatingRepositoryIT {
         rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
     }
+
     @Test
     public void ratingTest_update() {
+        //ARRANGE
         rating.setId(1);
         rating.setOrderNumber(20);
+        //ACT
         rating = ratingRepository.save(rating);
+        //ASSERT
         assertTrue(rating.getOrderNumber() == 20);
     }
 
     @Test
     public void ratingTest_findAll() {
-
+        //ACT
         List<Rating> listResult = ratingRepository.findAll();
+        //ASSERT
         assertThat(listResult.size()).isEqualTo(2);
     }
 
     @Test
     public void ratingTest_delete() {
-
+        //ARRANGE
         rating.setId(2);
+        //ACT
         ratingRepository.delete(rating);
         Optional<Rating> ratingList = ratingRepository.findById(2);
+        //ASSERT
         assertFalse(ratingList.isPresent());
     }
 }

@@ -21,8 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Sql(scripts = "classpath:test-data.sql",
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class RuleNameRepositoryIT {
 
     @Autowired
@@ -31,29 +30,37 @@ public class RuleNameRepositoryIT {
 
     @BeforeEach
     void setUp() {
+
         rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
     }
 
     @Test
     public void ruleTest_update() {
-rule.setId(1);
+        //ARRANGE
+        rule.setId(1);
         rule.setName("Rule Name Update");
+        //ACT
         rule = ruleNameRepository.save(rule);
+        //ASSERT
         assertTrue(rule.getName().equals("Rule Name Update"));
     }
 
     @Test
     public void ruleTest_FindALL() {
-
+        //ACT
         List<RuleName> listResult = ruleNameRepository.findAll();
+        //ASSERT
         assertThat(listResult.size()).isEqualTo(1);
     }
 
     @Test
     public void ruleTest_Delete() {
-    rule.setId(1);
+        //ARRANGE
+        rule.setId(1);
+        //ACT
         ruleNameRepository.delete(rule);
         Optional<RuleName> ruleList = ruleNameRepository.findById(1);
+        //ASSERT
         assertFalse(ruleList.isPresent());
     }
 }

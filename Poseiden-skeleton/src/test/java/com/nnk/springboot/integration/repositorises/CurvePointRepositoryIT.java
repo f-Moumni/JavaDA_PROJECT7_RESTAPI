@@ -36,13 +36,14 @@ public class CurvePointRepositoryIT {
     }
 
 
-
     @Test
     public void curvePointTest_Update() {
-        // Update
+        //ARRANGE
         curvePoint.setId(1);
         curvePoint.setCurveId(20);
+        //ACT
         curvePoint = curvePointRepository.save(curvePoint);
+        //ASSERT
         assertTrue(curvePoint.getCurveId() == 20);
     }
 
@@ -51,7 +52,7 @@ public class CurvePointRepositoryIT {
         // ACT
         List<CurvePoint> listResult = curvePointRepository.findAll();
         //ASSERT
-        assertThat(listResult.size() ).isEqualTo(1);
+        assertThat(listResult.size()).isEqualTo(1);
     }
 
     @Test

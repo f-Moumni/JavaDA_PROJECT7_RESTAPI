@@ -34,23 +34,30 @@ public class TradeRepositoryIT {
 
     @Test
     public void tradeTest_Update() {
+        //ARRANGE
         trade.setTradeId(1);
         trade.setAccount("Trade Account Update");
+        //ACT
         trade = tradeRepository.save(trade);
+        //ASSERT
         assertTrue(trade.getAccount().equals("Trade Account Update"));
     }
 
     @Test
     public void tradeTest_FindAll() {
-
+        //ACT
         List<Trade> listResult = tradeRepository.findAll();
+        //ASSERT
         assertTrue(listResult.size() > 0);
     }
 
     @Test
     public void tradeTest_Delete() {
+        //ARRANGE
         trade.setTradeId(1);
+        //ACT
         tradeRepository.delete(trade);
+        //ASSERT
         Optional<Trade> tradeList = tradeRepository.findById(1);
         assertFalse(tradeList.isPresent());
     }
