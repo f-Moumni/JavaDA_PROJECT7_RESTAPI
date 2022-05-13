@@ -1,10 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
-import com.nnk.springboot.controllers.CurveController;
-import com.nnk.springboot.controllers.RatingController;
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.service.CurveService;
 import com.nnk.springboot.service.RatingService;
 import com.nnk.springboot.service.UserDetailService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,12 +34,12 @@ public class RatingControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    RatingService ratingService;
+    private RatingService ratingService;
     @MockBean
-    UserDetailService userDetailService;
+    private UserDetailService userDetailService;
 
     @MockBean
-    CustomOAuth2UserService oAuth2UserService;
+    private CustomOAuth2UserService oAuth2UserService;
     @Autowired
     private WebApplicationContext context;
     private Rating rating;
@@ -83,12 +80,12 @@ public class RatingControllerTest {
     @Test
     void validateRating_withInvalidRating_shouldReturnErrorViewAddRating() throws Exception {
         //ARRANGE
-     when(ratingService.save(rating)).thenReturn(rating);
+        when(ratingService.save(rating)).thenReturn(rating);
         //ACT
         mvc.perform(post("/rating/validate")
                         .sessionAttr("rating", rating)
-                        .param("moodysRating",rating.getMoodysRating() )
-                        .param("sandPRating",rating.getSandPRating())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
                         .param("fitchRating", "0")
                         .param("orderNumber", "0")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,8 +105,8 @@ public class RatingControllerTest {
         //ACT
         mvc.perform(post("/rating/validate")
                         .sessionAttr("rating", rating)
-                        .param("moodysRating",rating.getMoodysRating() )
-                        .param("sandPRating",rating.getSandPRating())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
                         .param("fitchRating", String.valueOf(rating.getFitchRating()))
                         .param("orderNumber", String.valueOf(rating.getOrderNumber()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -128,8 +125,8 @@ public class RatingControllerTest {
         //ACT
         mvc.perform(post("/rating/update/1")
                         .sessionAttr("rating", rating)
-                        .param("moodysRating",rating.getMoodysRating() )
-                        .param("sandPRating",rating.getSandPRating())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
                         .param("fitchRating", String.valueOf(rating.getFitchRating()))
                         .param("orderNumber", String.valueOf(rating.getOrderNumber()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -148,8 +145,8 @@ public class RatingControllerTest {
         //ACT
         mvc.perform(post("/rating/update/1")
                         .sessionAttr("rating", rating)
-                        .param("moodysRating",rating.getMoodysRating() )
-                        .param("sandPRating",rating.getSandPRating())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
                         .param("fitchRating", "0")
                         .param("orderNumber", "0")
                         .contentType(MediaType.APPLICATION_JSON)

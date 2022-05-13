@@ -1,18 +1,16 @@
 package com.nnk.springboot.controller;
 
-import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.service.BidService;
-import com.nnk.springboot.service.UserDetailService;
 
+import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.service.TradeService;
+import com.nnk.springboot.service.UserDetailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,130 +22,73 @@ import java.util.Arrays;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(BidListController.class)
-public class BidListControllerTest {
+@WebMvcTest(TradeController.class)
+public class TradeControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @MockBean
-    private BidService bidService;
+    private TradeService tradeService;
     @MockBean
-   private UserDetailService userDetailService;
+    private UserDetailService userDetailService;
 
     @MockBean
     private CustomOAuth2UserService oAuth2UserService;
     @Autowired
     private WebApplicationContext context;
-    private BidList bid;
+    private Trade trade;
 
     @BeforeEach
-    void setup() {
-        bid = new BidList("Account Test", "TypeTest", 10d);
+    void setup() throws Exception {
+
+        trade = new Trade("Account", "Type", 12);
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
-    void getBidListTest_shouldReturnBidListView() throws Exception {
+    void getTradeTest_shouldReturnTradeView() throws Exception {
         //ARRANGE
-        when(bidService.findAll()).thenReturn(Arrays.asList(bid));
+        when(tradeService.findAll()).thenReturn(Arrays.asList(trade));
         //ACT
-        mvc.perform(get("/bidList/list")
+        mvc.perform(get("/trade/list")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //ASSERT
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("bids"))
-                .andExpect(view().name("bidList/list"));
+                .andExpect(model().attributeExists("trades"))
+                .andExpect(view().name("trade/list"));
     }
 
     @Test
-    void addBidFormTest_shouldReturnAddBidListView() throws Exception {
+    void addTradeFormTest_shouldReturnAddTradeView() throws Exception {
         //ACT
-        mvc.perform(get("/bidList/add")
+        mvc.perform(get("/trade/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //ASSERT
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("bidList/add"));
+                .andExpect(view().name("trade/add"));
     }
 
     @Test
-    void validateBidList_withInvalidBidList_shouldViewAddBidList() throws Exception {
+    void validateTrade_withInvalidTrade_shouldReturnErrorViewAddTrade() throws Exception {
         //ARRANGE
-        when(bidService.save(bid)).thenReturn(bid);
+        when(tradeService.save(trade)).thenReturn(trade);
         //ACT
-        mvc.perform(post("/bidList/validate")
-                        .sessionAttr("bidList", bid)
-                        .param("account", bid.getAccount())
-                        .param("type", bid.getType())
-                        .param("bidQuantity", "0")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //ASSERT
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString(
-                        "must be greater than or equal to 1")))
-                .andExpect(view().name("bidList/add"));
-    }
-
-    @Test
-    void validateBidList_shouldAddBidList_AndReturnTOBidListView() throws Exception {
-        //ARRANGE
-
-        when(bidService.save(bid)).thenReturn(bid);
-        //ACT
-        mvc.perform(post("/bidList/validate")
-                        .sessionAttr("bidList", bid)
-                        .param("account", bid.getAccount())
-                        .param("type", bid.getType())
-                        .param("bidQuantity", String.valueOf(bid.getBidQuantity()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //ASSERT
-                .andDo(print())
-                .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/bidList/list"));
-
-    }
-
-    @Test
-    void UpdateBidList_shouldUpdateBidList_AndReturnTOBidListView() throws Exception {
-        //ARRANGE
-        when(bidService.save(bid)).thenReturn(bid);
-        //ACT
-        mvc.perform(post("/bidList/update/1")
-                        .sessionAttr("bidList", bid)
-                        .param("account", bid.getAccount())
-                        .param("type", bid.getType())
-                        .param("bidQuantity", String.valueOf(bid.getBidQuantity()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //ASSERT
-                .andDo(print())
-                .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/bidList/list"));
-
-    }
-
-    @Test
-    void updateBidList_withInvalidBidList_shouldReturnErrorInViewBidList() throws Exception {
-        //ARRANGE
-        when(bidService.save(bid)).thenReturn(bid);
-        //ACT
-        mvc.perform(post("/bidList/update/1")
-                        .sessionAttr("bidList", bid)
-                        .param("account", bid.getAccount())
-                        .param("type", bid.getType())
-                        .param("bidQuantity", "0")
+        mvc.perform(post("/trade/validate")
+                        .sessionAttr("trade", trade)
+                        .param("account", trade.getAccount())
+                        .param("type", trade.getType())
+                        .param("buyQuantity", "0")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //ASSERT
@@ -155,36 +96,94 @@ public class BidListControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(
                         "must be greater than or equal to 1")))
-                .andExpect(view().name("bidList/update"));
+                .andExpect(view().name("trade/add"));
     }
 
     @Test
-    void showUpdateFormBidListTest_shouldReturnUpdateBidListView() throws Exception {
+    void validateTrade_shouldAddTrade_AndReturnTOTradeView() throws Exception {
         //ARRANGE
-        when(bidService.findById(1)).thenReturn(bid);
+        when(tradeService.save(trade)).thenReturn(trade);
         //ACT
-        mvc.perform(get("/bidList/update/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                //ASSERT
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("bidList"))
-                .andExpect(view().name("bidList/update"));
-    }
-
-    @Test
-    void deleteBidListTest_shouldReturnToBidListView() throws Exception {
-        //ARRANGE
-        when(bidService.findById(1)).thenReturn(bid);
-        doNothing().when(bidService).delete(bid);
-        //ACT
-        mvc.perform(get("/bidList/delete/1")
+        mvc.perform(post("/trade/validate")
+                        .sessionAttr("trade", trade)
+                        .param("account", trade.getAccount())
+                        .param("type", trade.getType())
+                        .param("buyQuantity", String.valueOf(trade.getBuyQuantity()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //ASSERT
                 .andDo(print())
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/bidList/list"));
+                .andExpect(view().name("redirect:/trade/list"));
+
+    }
+
+    @Test
+    void UpdateTrade_shouldUpdateTrade_AndReturnTOTradeView() throws Exception {
+        //ARRANGE
+        when(tradeService.save(trade)).thenReturn(trade);
+        //ACT
+        mvc.perform(post("/trade/update/1")
+                        .sessionAttr("trade", trade)
+                        .param("account", trade.getAccount())
+                        .param("type", trade.getType())
+                        .param("buyQuantity", String.valueOf(trade.getBuyQuantity()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //ASSERT
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/trade/list"));
+
+    }
+
+    @Test
+    void updateTrade_withInvalidTrade_shouldReturnErrorInViewTrade() throws Exception {
+        //ARRANGE
+        when(tradeService.save(trade)).thenReturn(trade);
+        //ACT
+        mvc.perform(post("/trade/update/1")
+                        .sessionAttr("trade", trade)
+                        .param("account", trade.getAccount())
+                        .param("type", trade.getType())
+                        .param("buyQuantity", "0")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //ASSERT
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(
+                        "must be greater than or equal to 1")))
+                .andExpect(view().name("trade/update"));
+    }
+
+    @Test
+    void showUpdateFormTradeTest_shouldReturnUpdateTradeView() throws Exception {
+        //ARRANGE
+        when(tradeService.findById(1)).thenReturn(trade);
+        //ACT
+        mvc.perform(get("/trade/update/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //ASSERT
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("trade"))
+                .andExpect(view().name("trade/update"));
+    }
+
+    @Test
+    void deleteTradeTest_shouldReturnToTradeView() throws Exception {
+        //ARRANGE
+        when(tradeService.findById(1)).thenReturn(trade);
+        doNothing().when(tradeService).delete(trade);
+        //ACT
+        mvc.perform(get("/trade/delete/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                //ASSERT
+                .andDo(print())
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/trade/list"));
     }
 }

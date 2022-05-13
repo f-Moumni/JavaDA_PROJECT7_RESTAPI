@@ -27,7 +27,6 @@ public class Trade {
     @NotBlank(message = "type required")
     private String type;
     @Column(name="buy_quantity")
-    @NotNull
     @Min(1)
     private double buyQuantity;
 
@@ -69,5 +68,7 @@ public class Trade {
         return buyQuantity;
     }
 
-
+    public void setBuyQuantity(double buyQuantity) {
+        this.buyQuantity = buyQuantity;
+    }
 }

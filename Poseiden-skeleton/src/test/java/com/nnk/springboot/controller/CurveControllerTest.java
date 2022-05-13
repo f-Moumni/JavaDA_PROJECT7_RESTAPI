@@ -1,11 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
-import com.nnk.springboot.controllers.BidListController;
-import com.nnk.springboot.controllers.CurveController;
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.service.BidService;
-import com.nnk.springboot.service.CurvePointServiceTest;
 import com.nnk.springboot.service.CurveService;
 import com.nnk.springboot.service.UserDetailService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(CurveController.class)
 public class CurveControllerTest {
@@ -38,12 +35,12 @@ public class CurveControllerTest {
     @Autowired
     private MockMvc mvc;
     @MockBean
-    CurveService curveService;
+    private CurveService curveService;
     @MockBean
-    UserDetailService userDetailService;
+    private UserDetailService userDetailService;
 
     @MockBean
-    CustomOAuth2UserService oAuth2UserService;
+    private CustomOAuth2UserService oAuth2UserService;
     @Autowired
     private WebApplicationContext context;
     private CurvePoint curvePoint;
@@ -70,7 +67,7 @@ public class CurveControllerTest {
     }
 
     @Test
-    void addBidFormTest_shouldReturnAddCurvePointView() throws Exception {
+    void addCurveFormTest_shouldReturnAddCurvePointView() throws Exception {
         //ACT
         mvc.perform(get("/curvePoint/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +86,7 @@ public class CurveControllerTest {
         mvc.perform(post("/curvePoint/validate")
                         .sessionAttr("curvePoint", curvePoint)
                         .param("curveId", String.valueOf(curvePoint.getCurveId()))
-                        .param("term",String.valueOf( curvePoint.getTerm()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
                         .param("value", "0")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +106,7 @@ public class CurveControllerTest {
         mvc.perform(post("/curvePoint/validate")
                         .sessionAttr("curvePoint", curvePoint)
                         .param("curveId", String.valueOf(curvePoint.getCurveId()))
-                        .param("term",String.valueOf( curvePoint.getTerm()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
                         .param("value", String.valueOf(curvePoint.getValue()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -128,7 +125,7 @@ public class CurveControllerTest {
         mvc.perform(post("/curvePoint/update/1")
                         .sessionAttr("curvePoint", curvePoint)
                         .param("curveId", String.valueOf(curvePoint.getCurveId()))
-                        .param("term",String.valueOf( curvePoint.getTerm()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
                         .param("value", String.valueOf(curvePoint.getValue()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -147,7 +144,7 @@ public class CurveControllerTest {
         mvc.perform(post("/curvePoint/update/1")
                         .sessionAttr("curvePoint", curvePoint)
                         .param("curveId", String.valueOf(curvePoint.getCurveId()))
-                        .param("term",String.valueOf( curvePoint.getTerm()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
                         .param("value", "0")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
