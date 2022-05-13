@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Service
 @Transactional
 public class CurveServiceImpl implements CurveService {
@@ -18,8 +19,13 @@ public class CurveServiceImpl implements CurveService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(CurveServiceImpl.class);
 
+
+   private final CurvePointRepository curvePointRepository;
+
     @Autowired
-    CurvePointRepository curvePointRepository;
+    public CurveServiceImpl(CurvePointRepository curvePointRepository) {
+        this.curvePointRepository = curvePointRepository;
+    }
 
     @Override
     public List<CurvePoint> findAll() {
@@ -29,22 +35,22 @@ public class CurveServiceImpl implements CurveService {
 
     @Override
     public void save(CurvePoint curvePoint) {
-        LOGGER.debug("saving curvePoint {}",curvePoint.getCurveId());
+        LOGGER.debug("saving curvePoint {}", curvePoint.getCurveId());
         curvePointRepository.save(curvePoint);
     }
 
     @Override
     public CurvePoint findById(Integer id) {
-        LOGGER.debug("fetching CurvePoint by id:{}",id);
-        return   curvePointRepository.findById(id).orElseThrow( ()->{
+        LOGGER.debug("fetching CurvePoint by id:{}", id);
+        return curvePointRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid curve Point Id: {} ", id);
             return new IllegalArgumentException("Invalid curve Point Id:" + id);
-        }   );
+        });
     }
 
     @Override
     public void delete(CurvePoint curvePoint) {
-        LOGGER.debug("deleting curvePoint:{}",curvePoint.getCurveId());
+        LOGGER.debug("deleting curvePoint:{}", curvePoint.getCurveId());
         curvePointRepository.delete(curvePoint);
     }
 }
