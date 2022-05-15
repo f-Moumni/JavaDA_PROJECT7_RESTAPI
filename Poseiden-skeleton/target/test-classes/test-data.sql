@@ -12,6 +12,7 @@ INSERT INTO trade (`trade_id`, `account`, `buy_quantity`) VALUES (1, 'account te
 INSERT INTO trade (`trade_id`, `account`, `buy_quantity`) VALUES (2, 'account test',  20);
 
 INSERT INTO rule_name (`id`, `description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES (1, 'Description test', 'json test', 'name', 'sql part test', 'sql test', 'template test');
+INSERT INTO rule_name (`id`, `description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES (2, 'Description test2', 'json test2', 'name2', 'sql part test2', 'sql test2', 'template test2');
 
 INSERT INTO rating (`id`, `fitch_rating`, `moodys_rating`, `order_number`, `sandp_rating`) VALUES ( 3, 'fitch test', 'moddy test',2, 'sand rating test');
 INSERT INTO rating (`id`, `fitch_rating`, `moodys_rating`, `order_number`, `sandp_rating`) VALUES ( 2, 'fitch test', 'moddy test',1, 'sand rating test');

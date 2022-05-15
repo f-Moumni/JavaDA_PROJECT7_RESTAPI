@@ -37,7 +37,6 @@ public class UserControllerTest {
     private UserService userService;
     @MockBean
     private UserDetailService userDetailService;
-
     @MockBean
     private CustomOAuth2UserService oAuth2UserService;
     @Autowired

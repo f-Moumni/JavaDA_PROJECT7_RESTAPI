@@ -57,11 +57,11 @@ public class UserRepositoryIT {
     @Test
     public void userTest_Delete() {
         //ARRANGE
-        user.setId(1);
+        user.setId(2);
         //ACT
         userRepository.delete(user);
         //ASSERT
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = userRepository.findById(2);
         assertFalse(result.isPresent());
     }
 }

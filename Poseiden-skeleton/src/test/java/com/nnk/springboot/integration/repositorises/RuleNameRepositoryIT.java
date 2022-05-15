@@ -50,7 +50,7 @@ public class RuleNameRepositoryIT {
         //ACT
         List<RuleName> listResult = ruleNameRepository.findAll();
         //ASSERT
-        assertThat(listResult.size()).isEqualTo(1);
+        assertThat(listResult.size()).isEqualTo(2);
     }
 
     @Test
