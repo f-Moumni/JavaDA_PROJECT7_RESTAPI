@@ -1,4 +1,4 @@
-package com.nnk.springboot.config.OAuth2;
+package com.nnk.springboot.config;
 
 import java.util.Collection;
 import java.util.Map;

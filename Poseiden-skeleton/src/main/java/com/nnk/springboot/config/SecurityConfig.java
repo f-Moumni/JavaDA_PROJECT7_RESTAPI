@@ -1,6 +1,5 @@
 package com.nnk.springboot.config;
 
-import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

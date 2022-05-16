@@ -1,6 +1,6 @@
 package com.nnk.springboot.controller;
 
-import com.nnk.springboot.config.OAuth2.CustomOAuth2UserService;
+import com.nnk.springboot.config.CustomOAuth2UserService;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.service.BidService;
 import com.nnk.springboot.service.UserDetailService;
