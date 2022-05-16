@@ -1,0 +1,34 @@
+
+body {
+    background: #434b57;
+    background: linear-gradient(to right, #0c1c0c, #455560);
+}
+.card-body {
+box-shadow: #5a6268;
+    background: #d8dfe3;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.form-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btn {
+    margin-top: 6px;
+    width: 200px;
+}
+.login_btn{
+    diplay :flex;
+    flex-direction: column;
+
+}
