@@ -1,31 +1,33 @@
-# spring-boot
-## Technical:
+#![poseidon](img/logo.png)
 
-1. Framework: Spring Boot v2.0.4
-2. Java 8
+_Poseidon_ is a web application that helps institutions increase their number of transactions.
+
+---------
+## Technical:
+1. Framework: Spring Boot v2.6.4
+2. Java 11
 3. Thymeleaf
 4. Bootstrap v.4.3.1
 
+---------
 
-## Setup with Intellij IDE
-1. Create project from Initializr: File > New > project > Spring Initializr
-2. Add lib repository into pom.xml
-3. Add folders
-    - Source root: src/main/java
-    - View: src/main/resources
-    - Static: src/main/resource/static
-4. Create database with name "demo" as configuration in application.properties
-5. Run sql script to create table doc/data.sql
+## Getting Started
 
-## Implement a Feature
-1. Create mapping domain class and place in package com.nnk.springboot.domain
-2. Create repository class and place in package com.nnk.springboot.repositories
-3. Create controller class and place in package com.nnk.springboot.controller
-4. Create view files and place in src/main/resource/templates
+### Running App
 
-## Write Unit Test
-1. Create unit test and place in package com.nnk.springboot in folder test > java
+To run the app, go to folder `Poseiden`
 
-## Security
-1. Create user service to load user from  database and place in package com.nnk.springboot.services
-2. Add configuration class and place in package com.nnk.springboot.config
+1. To set up the tables and data in the data base.
+
+   1. Create database with name **_poseiden_** as configuration in application.properties 
+   2. run the sql script present in  `doc/data.sql`.
+
+2. Compile and generate the final jar by running command: `mvn package`
+
+3. Run the APP with: `mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=`*database username* `--spring.datasource.password=`*database password*`"
+
+### Testing
+
+To run the tests execute the command: `mvn verify`  
+To generate the project's reports site, please run :`mvn site`
+---------
