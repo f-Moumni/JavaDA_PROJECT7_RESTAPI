@@ -1,17 +1,13 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "bid_list")
@@ -25,8 +21,9 @@ public class BidList  {
 
  @NotBlank(message = "type required ")
  private String type;
- @Column(name = "bid_quantity")
+
  @Min(1)
+ @Column(name = "bid_quantity")
  private double bidQuantity;
  @Column(name = "ask_quantity")
  private double askQuantity;
@@ -59,6 +56,13 @@ public class BidList  {
  public BidList() {
  }
  public BidList( String account, String type, double bidQuantity) {
+  this.account = account;
+  this.type = type;
+  this.bidQuantity = bidQuantity;
+ }
+
+ public BidList(Integer bidListId, String account, String type, double bidQuantity) {
+  this.bidListId = bidListId;
   this.account = account;
   this.type = type;
   this.bidQuantity = bidQuantity;

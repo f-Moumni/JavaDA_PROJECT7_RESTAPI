@@ -20,7 +20,7 @@
 ## Implement a Feature
 1. Create mapping domain class and place in package com.nnk.springboot.domain
 2. Create repository class and place in package com.nnk.springboot.repositories
-3. Create controller class and place in package com.nnk.springboot.controllers
+3. Create controller class and place in package com.nnk.springboot.controller
 4. Create view files and place in src/main/resource/templates
 
 ## Write Unit Test

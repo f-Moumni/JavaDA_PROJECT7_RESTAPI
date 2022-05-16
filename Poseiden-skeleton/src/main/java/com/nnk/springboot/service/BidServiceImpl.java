@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class BidServiceImpl implements BidService {
     /**
      * SLF4J/LOG4J LOGGER instance.
@@ -17,16 +19,21 @@ public class BidServiceImpl implements BidService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BidServiceImpl.class);
 
+    private final BidListRepository bidListRepository;
+
     @Autowired
-    BidListRepository bidListRepository;
+    public BidServiceImpl(BidListRepository bidListRepository) {
+        this.bidListRepository = bidListRepository;
+    }
+
 
     @Override
     public BidList findById(Integer id) {
-        LOGGER.debug("fetching bid by id:{}",id);
-        return   bidListRepository.findById(id).orElseThrow( ()->{
+        LOGGER.debug("fetching bid by id:{}", id);
+        return bidListRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid bid Id: {} ", id);
             return new IllegalArgumentException("Invalid bid Id:" + id);
-        }   );
+        });
     }
 
     @Override
@@ -37,13 +44,13 @@ public class BidServiceImpl implements BidService {
 
     @Override
     public BidList save(BidList bid) {
-        LOGGER.debug("saving bid {}",bid.getAccount());
+        LOGGER.debug("saving bid {}", bid.getAccount());
         return bidListRepository.save(bid);
     }
 
     @Override
     public void delete(BidList bidList) {
-        LOGGER.debug("deleting bid:{}",bidList.getBidListId());
+        LOGGER.debug("deleting bid:{}", bidList.getBidListId());
         bidListRepository.delete(bidList);
     }
 }

@@ -7,18 +7,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class RuleServiceImpl implements RuleService{
+@Transactional
+public class RuleServiceImpl implements RuleService {
     /**
      * SLF4J/LOG4J LOGGER instance.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(RuleServiceImpl.class);
 
+
+    private final RuleNameRepository ruleNameRepository;
+
     @Autowired
-    RuleNameRepository ruleNameRepository;
+    public RuleServiceImpl(RuleNameRepository ruleNameRepository) {
+        this.ruleNameRepository = ruleNameRepository;
+    }
 
     @Override
     public List<RuleName> findAll() {
@@ -28,22 +35,22 @@ public class RuleServiceImpl implements RuleService{
 
     @Override
     public RuleName save(RuleName ruleName) {
-        LOGGER.debug("saving RuleName {}",ruleName.getName());
+        LOGGER.debug("saving RuleName {}", ruleName.getName());
         return ruleNameRepository.save(ruleName);
     }
 
     @Override
     public RuleName findById(Integer id) {
-        LOGGER.debug("fetching RuleName by id:{}",id);
-        return   ruleNameRepository.findById(id).orElseThrow( ()->{
+        LOGGER.debug("fetching RuleName by id:{}", id);
+        return ruleNameRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid RuleName Id: {} ", id);
             return new IllegalArgumentException("Invalid RuleName Id:" + id);
-        }   );
+        });
     }
 
     @Override
     public void delete(RuleName rule) {
-        LOGGER.debug("deleting ruleName:{}",rule.getName());
+        LOGGER.debug("deleting ruleName:{}", rule.getName());
         ruleNameRepository.delete(rule);
     }
 }
