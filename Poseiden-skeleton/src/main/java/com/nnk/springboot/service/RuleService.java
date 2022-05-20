@@ -7,8 +7,18 @@ import java.util.List;
 
 @Service
 public interface RuleService {
+
+    /**
+     * find all rules
+     * @return
+     */
     List<RuleName> findAll();
 
+    /**
+     *
+     * @param ruleName
+     * @return
+     */
     RuleName save(RuleName ruleName);
 
     RuleName findById(Integer id);

@@ -26,19 +26,25 @@ public class CurveServiceImpl implements CurveService {
     public CurveServiceImpl(CurvePointRepository curvePointRepository) {
         this.curvePointRepository = curvePointRepository;
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<CurvePoint> findAll() {
         LOGGER.debug("getting all Curve Points");
         return curvePointRepository.findAll();
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void save(CurvePoint curvePoint) {
         LOGGER.debug("saving curvePoint {}", curvePoint.getCurveId());
         curvePointRepository.save(curvePoint);
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public CurvePoint findById(Integer id) {
         LOGGER.debug("fetching CurvePoint by id:{}", id);
@@ -47,7 +53,9 @@ public class CurveServiceImpl implements CurveService {
             return new IllegalArgumentException("Invalid curve Point Id:" + id);
         });
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(CurvePoint curvePoint) {
         LOGGER.debug("deleting curvePoint:{}", curvePoint.getCurveId());

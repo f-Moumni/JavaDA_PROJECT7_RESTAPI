@@ -13,7 +13,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
+/**
+ * Trade Object
+ */
 @Entity
 @Table(name = "trade")
 public class Trade {

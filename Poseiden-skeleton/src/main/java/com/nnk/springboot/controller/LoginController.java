@@ -15,16 +15,29 @@ public class LoginController {
         this.authorizedClientService = authorizedClientService;
     }
 
+    /**
+     * get login page
+     * @return
+     */
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * redirect home page to login
+     * @param model
+     * @return
+     */
     @RequestMapping("/")
     public String home(Model model) {
         return "login";
     }
 
+    /**
+     * get 403 page
+     * @return
+     */
     @GetMapping("/403")
     public String error() {
         return "403";

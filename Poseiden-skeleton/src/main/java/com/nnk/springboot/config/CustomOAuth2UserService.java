@@ -15,7 +15,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService  {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(CustomOAuth2UserService.class);
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 

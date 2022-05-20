@@ -26,7 +26,9 @@ public class BidServiceImpl implements BidService {
         this.bidListRepository = bidListRepository;
     }
 
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public BidList findById(Integer id) {
         LOGGER.debug("fetching bid by id:{}", id);
@@ -35,19 +37,25 @@ public class BidServiceImpl implements BidService {
             return new IllegalArgumentException("Invalid bid Id:" + id);
         });
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<BidList> findAll() {
         LOGGER.debug("getting all bids");
         return bidListRepository.findAll();
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public BidList save(BidList bid) {
         LOGGER.debug("saving bid {}", bid.getAccount());
         return bidListRepository.save(bid);
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(BidList bidList) {
         LOGGER.debug("deleting bid:{}", bidList.getBidListId());

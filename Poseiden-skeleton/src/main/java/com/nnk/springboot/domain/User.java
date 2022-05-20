@@ -5,6 +5,9 @@ import com.nnk.springboot.util.ValidPassword;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * User Object
+ */
 @Entity
 @Table(name = "users")
 public class User {

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+/**
+ * Bid List Controller
+ */
 @Controller
 @RequestMapping("/bidList")
 public class BidListController {
@@ -24,7 +26,9 @@ public class BidListController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BidListController.class);
 
-
+    /**
+     * BidService instance.
+     */
     private final BidService bidService;
 
     @Autowired
@@ -32,6 +36,12 @@ public class BidListController {
         this.bidService = bidService;
     }
 
+
+    /**
+     * get methode for get all bidList
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
     public String home(Model model) {
         LOGGER.debug("get request bidList/list");
@@ -39,12 +49,24 @@ public class BidListController {
         return "bidList/list";
     }
 
+    /**
+     * get methode to get add bid list view
+     * @param bid
+     * @return
+     */
     @GetMapping("/add")
     public String addBidForm(BidList bid) {
         LOGGER.debug("get request bidList/add {}", bid.getBidListId());
         return "bidList/add";
     }
 
+    /**
+     *  post methode to add bidList
+     * @param bid
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/validate")
     public String validate( @Valid BidList bid, BindingResult result, Model model) {
         LOGGER.debug("post request bidList/validate of bid{}", bid.getBidListId());
@@ -57,6 +79,12 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     * get methode to get update view
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request bidList/update/{}", id);
@@ -65,6 +93,14 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     * post methode to update bid list
+     * @param id
+     * @param bidList
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                             BindingResult result, Model model) {
@@ -79,6 +115,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * delete methode to delete bidList
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request bidList/delete/{}", id);

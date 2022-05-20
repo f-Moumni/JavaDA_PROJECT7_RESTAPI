@@ -28,18 +28,27 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<User> findAll() {
         LOGGER.debug("getting all users");
         return userRepository.findAll();
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void save(User user) {
         LOGGER.debug("saving user {}", user.getFullname());
         userRepository.save(user);
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public User findById(Integer id) {
         LOGGER.debug("fetching user by id:{}", id);
@@ -49,6 +58,9 @@ public class UserServiceImpl implements UserService {
         });
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(User user) {
         LOGGER.debug("deleting user:{}", user.getFullname());

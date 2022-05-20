@@ -8,10 +8,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
-
+/**
+ * BidList Object
+ */
 @Entity
 @Table(name = "bid_list")
 public class BidList  {
+
  @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
  private Integer bidListId;
@@ -25,6 +28,7 @@ public class BidList  {
  @Min(1)
  @Column(name = "bid_quantity")
  private double bidQuantity;
+
  @Column(name = "ask_quantity")
  private double askQuantity;
  private double bid;

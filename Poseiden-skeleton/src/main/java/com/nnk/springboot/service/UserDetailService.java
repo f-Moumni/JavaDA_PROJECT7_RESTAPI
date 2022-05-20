@@ -26,6 +26,9 @@ public class UserDetailService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.debug(" loading user by username {}",username);

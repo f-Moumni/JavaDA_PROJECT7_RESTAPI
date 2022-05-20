@@ -26,9 +26,18 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserController.class);
 
+    /**
+     * UserService instance
+     */
     @Autowired
     private UserService userService;
 
+
+    /**
+     * get methode to get all users
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
     public String home(Model model)
     {
@@ -37,12 +46,24 @@ public class UserController {
         return "user/list";
     }
 
+    /**
+     * get methode to show add view
+     * @param bid
+     * @return
+     */
     @GetMapping("/add")
     public String addUser(User bid) {
         LOGGER.debug("get request user/add of {}",bid.getFullname());
         return "user/add";
     }
 
+    /**
+     * post methode to add new User
+     * @param user
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         LOGGER.debug("post request user/validate of {}",user.getFullname());
@@ -57,6 +78,12 @@ public class UserController {
         return "user/add";
     }
 
+    /**
+     * get methode to show update view
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request user/update/{}",id);
@@ -66,6 +93,15 @@ public class UserController {
         return "user/update";
     }
 
+
+    /**
+     * post methode to update user
+     * @param id
+     * @param user
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -83,6 +119,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    /**
+     * get methode to delete user
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("Get request user/delete/{}",id);

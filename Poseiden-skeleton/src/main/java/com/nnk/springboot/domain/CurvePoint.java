@@ -10,7 +10,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-
+/**
+ * CurvePoint Object
+ */
 @Entity
 @Table(name = "curve_point")
 public class CurvePoint  {

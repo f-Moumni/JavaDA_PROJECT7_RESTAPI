@@ -28,18 +28,26 @@ public class TradeServiceImpl implements TradeService {
         this.tradeRepository = tradeRepository;
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<Trade> findAll() {
         LOGGER.debug("getting all Trades");
         return tradeRepository.findAll();
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public Trade save(Trade trade) {
         LOGGER.debug("saving trade {}", trade.getTradeId());
         return tradeRepository.save(trade);
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public Trade findById(Integer id) {
         LOGGER.debug("fetching trade by id:{}", id);
@@ -48,7 +56,9 @@ public class TradeServiceImpl implements TradeService {
             return new IllegalArgumentException("Invalid trade Id:" + id);
         });
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(Trade trade) {
         LOGGER.debug("deleting trade:{}", trade.getTradeId());

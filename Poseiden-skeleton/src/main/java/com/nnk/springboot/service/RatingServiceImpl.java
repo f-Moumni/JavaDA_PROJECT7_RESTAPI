@@ -22,18 +22,26 @@ public class RatingServiceImpl implements RatingService {
 
     @Autowired
     RatingRepository ratingRepository;
+
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<Rating> findAll() {
         LOGGER.debug("getting all ratings");
         return ratingRepository.findAll();
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public Rating save(Rating rating) {
         LOGGER.debug("saving rating {}",rating.getId());
         return ratingRepository.save(rating);
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public Rating findById(Integer id) {
         LOGGER.debug("fetching Rating by id:{}",id);
@@ -42,7 +50,9 @@ public class RatingServiceImpl implements RatingService {
             return new IllegalArgumentException("Invalid Rating Id:" + id);
         }   );
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(Rating rating) {
         LOGGER.debug("deleting rating :{}",rating.getId());

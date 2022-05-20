@@ -27,18 +27,25 @@ public class RuleServiceImpl implements RuleService {
         this.ruleNameRepository = ruleNameRepository;
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public List<RuleName> findAll() {
         LOGGER.debug("getting all rules");
         return ruleNameRepository.findAll();
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public RuleName save(RuleName ruleName) {
         LOGGER.debug("saving RuleName {}", ruleName.getName());
         return ruleNameRepository.save(ruleName);
     }
-
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public RuleName findById(Integer id) {
         LOGGER.debug("fetching RuleName by id:{}", id);
@@ -48,6 +55,9 @@ public class RuleServiceImpl implements RuleService {
         });
     }
 
+    /**
+     * * {@inheritDoc}
+     */
     @Override
     public void delete(RuleName rule) {
         LOGGER.debug("deleting ruleName:{}", rule.getName());

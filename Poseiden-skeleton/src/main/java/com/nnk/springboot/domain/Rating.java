@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * Rating Object
+ */
 @Entity
 @Table(name = "rating")
 public class Rating {

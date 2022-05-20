@@ -25,9 +25,17 @@ public class TradeController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(TradeController.class);
 
+    /**
+     * TradeService Instance
+     */
     @Autowired
     private TradeService tradeService;
 
+    /**
+     * get methode to get all Trade
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
     public String home(Model model)
     {
@@ -36,12 +44,25 @@ public class TradeController {
         return "trade/list";
     }
 
+    /**
+     * get methode to get add view
+     * @param bid
+     * @return
+     */
     @GetMapping("/add")
     public String addUser(Trade bid) {
         LOGGER.debug("get request trade/add of {}",bid.getTradeId());
         return "trade/add";
     }
 
+
+    /**
+     * post methode to add new Trade
+     * @param trade
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         LOGGER.debug("post request trade/validate of trade{}",trade.getTradeId());
@@ -54,6 +75,12 @@ public class TradeController {
         return "trade/add";
     }
 
+    /**
+     * get methode to show update view
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request trade/update/{}",id);
@@ -62,6 +89,14 @@ public class TradeController {
         return "trade/update";
     }
 
+    /**
+     * post methode to update Trade
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
@@ -76,6 +111,12 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /**
+     * get methode to delete trade
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         LOGGER.debug("get request trade/delete/{}",id);

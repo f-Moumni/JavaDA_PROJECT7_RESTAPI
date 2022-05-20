@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/**
+ * RuleName Obejct
+ */
 @Entity
 @Table(name = "rule_name")
 public class RuleName  {
