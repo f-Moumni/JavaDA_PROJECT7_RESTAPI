@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.BidListRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ public class BidServiceImplTest {
         assertThat(result.getBidQuantity()).isEqualTo(10d);
     }
     @Test
-    public void findByIdBidListTest_ShouldReturnBidList() {
+    public void findByIdBidListTest_ShouldReturnBidList() throws DataNotFoundException {
         //ARRANGE
         when(bidListRepository.findById(1)).thenReturn(Optional.of(bid));
         // ACT
@@ -59,7 +60,7 @@ public class BidServiceImplTest {
         //ARRANGE
        when(bidListRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class,()-> bidService.findById(1));
+        assertThrows(DataNotFoundException.class,()-> bidService.findById(1));
     }
 
     @Test

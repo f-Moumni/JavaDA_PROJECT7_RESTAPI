@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ public class RuleNameServiceTest {
     }
 
     @Test
-    public void findByIdRuleNameTest_ShouldReturnRuleName() {
+    public void findByIdRuleNameTest_ShouldReturnRuleName() throws DataNotFoundException {
         //ARRANGE
         when(ruleNameRepository.findById(1)).thenReturn(Optional.of(ruleName));
         // ACT
@@ -58,7 +59,7 @@ public class RuleNameServiceTest {
         //ARRANGE
         when(ruleNameRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class, () -> ruleService.findById(1));
+        assertThrows(DataNotFoundException.class, () -> ruleService.findById(1));
     }
 
     @Test

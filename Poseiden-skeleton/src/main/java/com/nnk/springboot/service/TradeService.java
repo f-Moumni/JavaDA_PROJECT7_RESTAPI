@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface TradeService {
      * @param id
      * @return
      */
-    Trade findById(Integer id);
+    Trade findById(Integer id) throws DataNotFoundException;
 
     /**
      * delete given trade

@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ public class RatingServiceTest {
     }
 
     @Test
-    public void findByIdRatingTest_ShouldReturnRating() {
+    public void findByIdRatingTest_ShouldReturnRating() throws DataNotFoundException {
         //ARRANGE
         when(ratingRepository.findById(1)).thenReturn(Optional.of(rating));
         // ACT
@@ -59,7 +60,7 @@ public class RatingServiceTest {
         //ARRANGE
         when(ratingRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class, () -> ratingService.findById(1));
+        assertThrows(DataNotFoundException.class, () -> ratingService.findById(1));
     }
 
     @Test

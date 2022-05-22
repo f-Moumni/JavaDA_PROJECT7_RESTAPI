@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +47,11 @@ public class CurveServiceImpl implements CurveService {
      * * {@inheritDoc}
      */
     @Override
-    public CurvePoint findById(Integer id) {
+    public CurvePoint findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching CurvePoint by id:{}", id);
         return curvePointRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid curve Point Id: {} ", id);
-            return new IllegalArgumentException("Invalid curve Point Id:" + id);
+            return new DataNotFoundException("Invalid curve Point Id:" + id);
         });
     }
     /**

@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.BidList;
 
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.BidService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +87,7 @@ public class BidListController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request bidList/update/{}", id);
         BidList bidList = bidService.findById(id);
         model.addAttribute("bidList", bidList);
@@ -122,7 +123,7 @@ public class BidListController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request bidList/delete/{}", id);
         BidList bidList = bidService.findById(id);
         bidService.delete(bidList);

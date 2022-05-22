@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.CurvePoint;
 
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.CurveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +86,7 @@ public class CurveController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request curvePoint/update/{}",id);
         CurvePoint curvePoint  = curveService.findById(id);
         model.addAttribute("curvePoint", curvePoint);
@@ -121,7 +122,7 @@ public class CurveController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request curvePoint/delete/{}",id);
         CurvePoint curvePoint  = curveService.findById(id);
         curveService.delete(curvePoint);

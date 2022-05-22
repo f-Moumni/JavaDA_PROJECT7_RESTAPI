@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +48,11 @@ public class RuleServiceImpl implements RuleService {
      * * {@inheritDoc}
      */
     @Override
-    public RuleName findById(Integer id) {
+    public RuleName findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching RuleName by id:{}", id);
         return ruleNameRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid RuleName Id: {} ", id);
-            return new IllegalArgumentException("Invalid RuleName Id:" + id);
+            return new DataNotFoundException("Invalid RuleName Id:" + id);
         });
     }
 

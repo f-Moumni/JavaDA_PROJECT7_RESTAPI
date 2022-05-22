@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    User findById(Integer id);
+    User findById(Integer id) throws DataNotFoundException;
 
     /**
      * delete given user

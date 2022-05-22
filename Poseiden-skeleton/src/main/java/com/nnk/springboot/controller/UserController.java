@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +86,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request user/update/{}",id);
         User user = userService.findById(id);
         user.setPassword("");
@@ -126,7 +127,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model) {
+    public String deleteUser(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("Get request user/delete/{}",id);
         User user = userService.findById(id);
         userService.delete(user);

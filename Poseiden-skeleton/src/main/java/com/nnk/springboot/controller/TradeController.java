@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +83,7 @@ public class TradeController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request trade/update/{}",id);
         Trade trade = tradeService.findById(id);
         model.addAttribute("trade", trade);
@@ -118,7 +119,7 @@ public class TradeController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id, Model model) {
+    public String deleteTrade(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request trade/delete/{}",id);
         Trade trade = tradeService.findById(id);
         tradeService.delete(trade);

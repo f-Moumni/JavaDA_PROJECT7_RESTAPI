@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +50,11 @@ public class TradeServiceImpl implements TradeService {
      * * {@inheritDoc}
      */
     @Override
-    public Trade findById(Integer id) {
+    public Trade findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching trade by id:{}", id);
         return tradeRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid trade Id: {} ", id);
-            return new IllegalArgumentException("Invalid trade Id:" + id);
+            return new DataNotFoundException("Invalid trade Id:" + id);
         });
     }
     /**

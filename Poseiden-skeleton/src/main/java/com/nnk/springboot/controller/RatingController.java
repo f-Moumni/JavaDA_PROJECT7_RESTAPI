@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.RatingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +82,7 @@ public class RatingController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request rating/update/{}", id);
         Rating rating = ratingService.findById(id);
         model.addAttribute("rating", rating);
@@ -119,7 +120,7 @@ public class RatingController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {
+    public String deleteRating(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request rating/delete/{}", id);
         Rating rating = ratingService.findById(id);
         ratingService.delete(rating);

@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.BidListRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +31,11 @@ public class BidServiceImpl implements BidService {
      * * {@inheritDoc}
      */
     @Override
-    public BidList findById(Integer id) {
+    public BidList findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching bid by id:{}", id);
         return bidListRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid bid Id: {} ", id);
-            return new IllegalArgumentException("Invalid bid Id:" + id);
+            return new DataNotFoundException("Invalid bid Id:" + id);
         });
     }
     /**

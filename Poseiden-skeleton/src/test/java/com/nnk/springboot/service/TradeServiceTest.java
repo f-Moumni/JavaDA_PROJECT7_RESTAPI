@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ public class TradeServiceTest {
     }
 
     @Test
-    public void findByIdTradeTest_ShouldReturnTrade() {
+    public void findByIdTradeTest_ShouldReturnTrade() throws DataNotFoundException {
         //ARRANGE
         when(tradeRepository.findById(1)).thenReturn(Optional.of(trade));
         // ACT
@@ -59,7 +60,7 @@ public class TradeServiceTest {
         //ARRANGE
         when(tradeRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class, () -> tradeService.findById(1));
+        assertThrows(DataNotFoundException.class, () -> tradeService.findById(1));
     }
 
     @Test

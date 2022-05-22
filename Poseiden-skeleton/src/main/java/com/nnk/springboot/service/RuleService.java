@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface RuleService {
      */
     RuleName save(RuleName ruleName);
 
-    RuleName findById(Integer id);
+    RuleName findById(Integer id) throws DataNotFoundException;
 
     void delete(RuleName rule);
 }

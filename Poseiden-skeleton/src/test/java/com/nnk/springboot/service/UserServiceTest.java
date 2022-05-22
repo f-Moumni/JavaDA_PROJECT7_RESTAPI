@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findByIdUserTest_ShouldReturnUser() {
+    public void findByIdUserTest_ShouldReturnUser() throws DataNotFoundException {
         //ARRANGE
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         // ACT
@@ -58,7 +59,7 @@ public class UserServiceTest {
         //ARRANGE
         when(userRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class, () -> userService.findById(1));
+        assertThrows(DataNotFoundException.class, () -> userService.findById(1));
     }
 
     @Test

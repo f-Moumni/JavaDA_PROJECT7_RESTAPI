@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.RuleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class RuleNameController {
      * @return
      */
     @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request ruleName/update/{}",id);
         RuleName rule = ruleService.findById(id);
         model.addAttribute("ruleName", rule);
@@ -116,7 +117,7 @@ public class RuleNameController {
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
+    public String deleteRuleName(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         LOGGER.debug("get request ruleName/delete/{}",id);
         RuleName rule = ruleService.findById(id);
         ruleService.delete(rule);

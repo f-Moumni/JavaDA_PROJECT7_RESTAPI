@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.exception.DataNotFoundException;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface BidService {
      * @param id
      * @return Bid
      */
-    BidList findById(Integer id);
+    BidList findById(Integer id) throws DataNotFoundException;
 
     /**
      * get all bids

@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,11 +51,11 @@ public class UserServiceImpl implements UserService {
      * * {@inheritDoc}
      */
     @Override
-    public User findById(Integer id) {
+    public User findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching user by id:{}", id);
         return userRepository.findById(id).orElseThrow(() -> {
             LOGGER.error("Invalid user Id: {} ", id);
-            return new IllegalArgumentException("Invalid user Id:" + id);
+            return new DataNotFoundException("Invalid user Id:" + id);
         });
     }
 

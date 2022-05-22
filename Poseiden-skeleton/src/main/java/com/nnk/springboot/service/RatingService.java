@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface RatingService {
      * @param id
      * @return
      */
-    Rating findById(Integer id);
+    Rating findById(Integer id) throws DataNotFoundException;
 
 
     /**

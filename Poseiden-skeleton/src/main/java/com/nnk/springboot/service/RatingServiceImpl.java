@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +44,11 @@ public class RatingServiceImpl implements RatingService {
      * * {@inheritDoc}
      */
     @Override
-    public Rating findById(Integer id) {
+    public Rating findById(Integer id) throws DataNotFoundException {
         LOGGER.debug("fetching Rating by id:{}",id);
         return   ratingRepository.findById(id).orElseThrow( ()->{
             LOGGER.error("Invalid Rating Id: {} ", id);
-            return new IllegalArgumentException("Invalid Rating Id:" + id);
+            return new DataNotFoundException("Invalid Rating Id:" + id);
         }   );
     }
     /**

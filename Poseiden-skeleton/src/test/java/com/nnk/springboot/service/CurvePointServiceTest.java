@@ -1,6 +1,7 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ public class CurvePointServiceTest {
     }
 
     @Test
-    public void findByIdCurvePointTest_ShouldReturnCurvePoint() {
+    public void findByIdCurvePointTest_ShouldReturnCurvePoint() throws DataNotFoundException {
         //ARRANGE
         when(curvePointRepository.findById(1)).thenReturn(Optional.of(curvePoint));
         // ACT
@@ -57,7 +58,7 @@ public class CurvePointServiceTest {
         //ARRANGE
         when(curvePointRepository.findById(1)).thenReturn(Optional.empty());
         // ACT //ASSERT
-        assertThrows(IllegalArgumentException.class, () -> curveService.findById(1));
+        assertThrows(DataNotFoundException.class, () -> curveService.findById(1));
     }
 
     @Test
